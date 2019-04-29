@@ -10,8 +10,12 @@ class RedisQueue:
     redis: Redis
     name: str
 
-    def __init__(self, queue_name: str, host: str = 'localhost', port: int = 6379, db: int = 0) -> None:
-        """Create a redis queue."""
+    def __init__(self,
+            queue_name: str,
+            host: str = 'localhost',
+            port: int = 6379,
+            db: int = 0) -> None:
+        """Connect to a redis queue."""
 
         self.name = queue_name
         self.redis = Redis(host=host, port=port, db=db)
@@ -55,6 +59,9 @@ def initialize_redis_queue(name: str, db: int = 0) -> RedisQueue:
     redis_host = getenv('REDIS_HOST', 'localhost')
     redis_port = getenv('REDIS_PORT', 6379)
 
-    queue = RedisQueue(queue_name=name, host=redis_host, port=redis_port, db=db)
+    queue = RedisQueue(queue_name=name,
+            host=redis_host,
+            port=redis_port,
+            db=db)
 
     return queue
